@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Portofolio interaktif - Tampilkan karya terbaik saya">
+    <title>Portofolio Interaktif | Beranda</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">Porto<span>Interaktif</span></a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Beranda</a></li>
+                <li><a href="about.html">Tentang</a></li>
+                <li><a href="portfolio.html">Portofolio</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+                <li><a href="admin/login.php" class="admin-link"><i class="fas fa-user-shield"></i> Admin</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="greeting">Halo, Selamat Datang</span>
+                <h1>Saya <span class="highlight glitch-text" data-text="Nama Anda">Bayu</span></h1>
+                <div class="typing-container">
+                    <span class="static-text">Seorang </span>
+                    <span class="typing-text" id="typing">Web Developer</span>
+                </div>
+                <p>Saya seorang pengembang web kreatif yang berdedikasi menciptakan pengalaman digital yang menarik, responsif, dan fungsional.</p>
+                <div class="hero-buttons">
+                    <a href="portfolio.html" class="btn btn-primary"><i class="fas fa-eye"></i> Lihat Portofolio</a>
+                    <a href="contact.html" class="btn btn-secondary"><i class="fas fa-envelope"></i> Hubungi Saya</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-code"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <div class="stat-number animated-counter" data-target="15">0</div>
+                <div class="stat-label">Project Selesai</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number animated-counter" data-target="10">0</div>
+                <div class="stat-label">Klien Puas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number animated-counter" data-target="3">0</div>
+                <div class="stat-label">Tahun Pengalaman</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number animated-counter" data-target="24">0</div>
+                <div class="stat-label">Project Selesai</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Apa Yang Saya Tawarkan</span>
+                <h2>Layanan & Keahlian</h2>
+                <p>Saya menyediakan berbagai layanan pengembangan web berkualitas tinggi</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card floating reveal">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Web Development</h3>
+                    <p>Membangun website modern, responsif, dan performa tinggi.</p>
+                </div>
+                <div class="service-card floating reveal">
+                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>UI/UX Design</h3>
+                    <p>Desain antarmuka yang menarik dan pengalaman pengguna yang intuitif.</p>
+                </div>
+                <div class="service-card floating reveal">
+                    <div class="service-icon"><i class="fas fa-database"></i></div>
+                    <h3>Backend Developer</h3>
+                    <p>Sistem backend yang aman, scalable, dan efisien.</p>
+                </div>
+                <div class="service-card floating reveal">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Responsive Design</h3>
+                    <p>Website yang tampil sempurna di semua perangkat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio-preview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Karya Terbaru</span>
+                <h2>Project Unggulan</h2>
+                <p>Beberapa project terbaik yang telah saya kerjakan</p>
+            </div>
+            <div class="preview-grid" id="previewGrid">
+                <div class="preview-card gradient-border reveal">
+                    <div class="preview-image"><i class="fas fa-image"></i></div>
+                    <div class="preview-info"><h3>E-commerce Website</h3><p>Platform belanja online modern</p></div>
+                </div>
+                <div class="preview-card gradient-border reveal">
+                    <div class="preview-image"><i class="fas fa-chart-line"></i></div>
+                    <div class="preview-info"><h3>Dashboard Analytics</h3><p>Sistem monitoring data real-time</p></div>
+                </div>
+                <div class="preview-card gradient-border reveal">
+                    <div class="preview-image"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="preview-info"><h3>E-Learning Platform</h3><p>Sistem manajemen pembelajaran online</p></div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="portfolio.html" class="btn btn-primary">Lihat Semua Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Testimoni</span>
+                <h2>Apa Kata Klien</h2>
+                <p>Pengalaman mereka bekerja sama dengan saya</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-card reveal">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"Bekerja sama dengannya sangat menyenangkan. Hasil kerjanya melebihi ekspektasi!"</p>
+                    <div class="client-info"><h4>Andi Wijaya</h4><span>CEO, Tech Startup</span></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"Website yang dibuat sangat responsif dan modern. Sangat direkomendasikan!"</p>
+                    <div class="client-info"><h4>Siti Nurhaliza</h4><span>Owner Brand Fashion</span></div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"Profesional, tepat waktu, dan hasilnya luar biasa. Akan bekerja sama lagi!"</p>
+                    <div class="client-info"><h4>Budi Santoso</h4><span>Marketing Manager</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Siap Membuat Project Hebat?</h2>
+            <p>Mari diskusikan ide dan project Anda bersama saya</p>
+            <a href="contact.html" class="btn btn-primary">Hubungi Sekarang <i class="fas fa-paper-plane"></i></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>Porto<span>Interaktif</span></h3><p>Solusi digital kreatif untuk masa depan yang lebih baik.</p></div>
+                <div class="footer-section"><h4>Menu</h4><ul><li><a href="index.html">Beranda</a></li><li><a href="about.html">Tentang</a></li><li><a href="portfolio.html">Portofolio</a></li><li><a href="contact.html">Kontak</a></li></ul></div>
+                <div class="footer-section"><h4>Kontak</h4><p><i class="fas fa-envelope"></i> email@example.com</p><p><i class="fas fa-phone"></i> +62 812 3456 7890</p></div>
+                <div class="footer-section"><h4>Ikuti Saya</h4><div class="social-links"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 Portofolio Interaktif. Dibuat dengan <i class="fas fa-heart"></i> untuk karya terbaik.</p></div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/dynamic.js"></script>
+</body>
+</html>

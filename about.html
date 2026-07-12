@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Saya - PortoInteraktif</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .about-page { padding: 120px 0 60px; }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .about-image { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 20px; padding: 2rem; text-align: center; color: white; }
+        .about-image i { font-size: 8rem; margin-bottom: 1rem; }
+        .about-text h2 { margin-bottom: 1rem; color: var(--accent); }
+        .about-text p { margin-bottom: 1rem; line-height: 1.8; color: var(--text-secondary); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .skill-item { background: var(--card-bg); padding: 1.5rem; border-radius: 15px; box-shadow: var(--shadow); }
+        .skill-name { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 600; }
+        .skill-bar { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+        .skill-progress { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 5px; width: 0; transition: width 1.5s ease; }
+        .timeline-item { display: flex; gap: 1.5rem; margin-bottom: 2rem; padding: 1rem; background: var(--card-bg); border-radius: 15px; }
+        .timeline-year { min-width: 100px; font-weight: bold; color: var(--accent); font-size: 1.2rem; }
+        @media (max-width: 768px) { .about-content { grid-template-columns: 1fr; } .timeline-item { flex-direction: column; gap: 0.5rem; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="index.html">Porto<span>Interaktif</span></a></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="about.html" class="active">Tentang</a></li>
+                <li><a href="portfolio.html">Portofolio</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+                <li><a href="admin/login.php" class="admin-link"><i class="fas fa-user-shield"></i> Admin</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section class="about-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Tentang Saya</span>
+                <h2>Kenali Lebih Dekat</h2>
+                <p>Passion, pengalaman, dan keahlian yang saya miliki</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image reveal">
+                    <i class="fas fa-user-astronaut"></i>
+                    <h3>Nama Anda</h3>
+                    <p>Web Developer & UI/UX Designer</p>
+                    <div class="social-icons" style="justify-content:center; margin-top:1rem;"><a href="#"><i class="fab fa-github"></i></a><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
+                </div>
+                <div class="about-text reveal">
+                    <h2>Halo! Saya <span class="highlight">Bayu</span></h2>
+                    <p>Saya seorang pengembang web profesional dengan pengalaman lebih dari 3 tahun dalam menciptakan solusi digital yang inovatif dan berkualitas tinggi.</p>
+                    <p>Saya memiliki hasrat besar dalam dunia teknologi dan desain. Saya percaya bahwa kode yang baik adalah kode yang tidak hanya berfungsi, tetapi juga memberikan pengalaman terbaik bagi penggunanya.</p>
+                    <p>Saat ini saya fokus pada pengembangan web modern menggunakan teknologi terbaru seperti React, Laravel, dan Node.js.</p>
+                </div>
+            </div>
+
+            <div class="skills-section reveal">
+                <div class="section-header"><h2>Keahlian & Teknologi</h2><p>Teknologi yang saya kuasai</p></div>
+                <div class="skills-grid">
+                    <div class="skill-item"><div class="skill-name"><span>HTML/CSS</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" data-width="95"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>JavaScript</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>PHP</span><span>80%</span></div><div class="skill-bar"><div class="skill-progress" data-width="80"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>React.js</span><span>75%</span></div><div class="skill-bar"><div class="skill-progress" data-width="75"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>MySQL</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" data-width="85"></div></div></div>
+                    <div class="skill-item"><div class="skill-name"><span>UI/UX Design</span><span>70%</span></div><div class="skill-bar"><div class="skill-progress" data-width="70"></div></div></div>
+                </div>
+            </div>
+
+            <div class="timeline reveal">
+                <div class="section-header"><h2>Pengalaman Kerja</h2><p>Perjalanan karir saya</p></div>
+                <div class="timeline-item"><div class="timeline-year">2023 - Sekarang</div><div class="timeline-content"><h4>Web Developer Senior</h4><p>PT. Teknologi Digital Indonesia - Mengembangkan aplikasi web berskala besar</p></div></div>
+                <div class="timeline-item"><div class="timeline-year">2021 - 2023</div><div class="timeline-content"><h4>Full Stack Developer</h4><p>Startup Creative Hub - Pengembangan backend dan frontend aplikasi</p></div></div>
+                <div class="timeline-item"><div class="timeline-year">2020 - 2021</div><div class="timeline-content"><h4>Junior Web Developer</h4><p>AgenSI Digital Agency - Membangun website untuk berbagai klien</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer"><div class="container"><div class="footer-bottom"><p>&copy; 2025 Portofolio Interaktif. Dibuat dengan <i class="fas fa-heart"></i> untuk karya terbaik.</p></div></div></footer>
+    <script src="js/script.js"></script>
+    <script src="js/dynamic.js"></script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.skill-progress');
+                    bars.forEach(bar => { bar.style.width = bar.dataset.width + '%'; });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        const skillsSection = document.querySelector('.skills-section');
+        if(skillsSection) observer.observe(skillsSection);
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Saya - PortoInteraktif</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .portfolio-page { padding: 120px 0 60px; }
+        .filter-buttons { text-align: center; margin-bottom: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+        .filter-btn { padding: 10px 25px; border: none; background: rgba(102,126,234,0.1); border-radius: 30px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; transform: translateY(-2px); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .portfolio-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: all 0.4s; }
+        .portfolio-card:hover { transform: translateY(-10px) scale(1.02); }
+        .card-image { height: 220px; overflow: hidden; position: relative; }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .portfolio-card:hover .card-image img { transform: scale(1.1); }
+        .card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .portfolio-card:hover .card-overlay { opacity: 1; }
+        .preview-btn { background: var(--accent); color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 600; }
+        .card-content { padding: 1.5rem; }
+        .card-category { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.7rem; margin-bottom: 1rem; }
+        .stats-portfolio { display: flex; justify-content: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .stat-badge { text-align: center; padding: 1rem 2rem; background: var(--card-bg); border-radius: 15px; box-shadow: var(--shadow); }
+        .stat-badge .number { font-size: 2rem; font-weight: bold; color: var(--accent); }
+        .loading-spinner { width: 50px; height: 50px; border: 4px solid rgba(230,126,34,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error-box { text-align: center; padding: 40px; background: #f8d7da; border-radius: 10px; color: #721c24; }
+        .error-box a { color: var(--accent); }
+        .no-image-placeholder {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="index.html">Porto<span>Interaktif</span></a></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="about.html">Tentang</a></li>
+                <li><a href="portfolio.html" class="active">Portofolio</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+                <li><a href="admin/login.php" class="admin-link"><i class="fas fa-user-shield"></i> Admin</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section class="portfolio-page">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Karya Saya</span>
+                <h2>Creative Portfolio</h2>
+                <p>Beberapa project terbaik yang telah saya kerjakan</p>
+            </div>
+            <div class="stats-portfolio">
+                <div class="stat-badge reveal"><div class="number" id="totalProjects">0</div><div>Total Project</div></div>
+                <div class="stat-badge reveal"><div class="number" id="totalCategories">0</div><div>Kategori</div></div>
+            </div>
+            <div class="filter-buttons" id="filterButtons"></div>
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div style="text-align:center; padding:40px;">
+                    <div class="loading-spinner"></div>
+                    <p>Memuat portfolio...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Portofolio Interaktif. Dibuat dengan <i class="fas fa-heart"></i> untuk karya terbaik.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/dynamic.js"></script>
+    <script>
+        // Dipanggil lewat onerror="" saat gambar project gagal dimuat (404/rusak/dihapus).
+        // Menggantikan <img> dengan placeholder yang rapi, bukan icon broken-image browser.
+        window.showImageFallback = function(imgEl) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'no-image-placeholder';
+            wrapper.innerHTML = '<i class="fas fa-image"></i>';
+            imgEl.replaceWith(wrapper);
+        };
+
+        let allItems = [];
+
+        async function loadPortfolio() {
+            const grid = document.getElementById('portfolioGrid');
+            try {
+                const response = await fetch('backend/api.php?action=get_all');
+                if (!response.ok) throw new Error('HTTP error ' + response.status);
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    allItems = data.data;
+                    if (allItems.length === 0) {
+                        grid.innerHTML = '<div class="error-box">✨ Belum ada portfolio. <a href="admin/tambah.php" style="color: var(--accent);">Tambah portfolio</a></div>';
+                    } else {
+                        updateStats(allItems);
+                        displayPortfolio(allItems);
+                        setupFilters(allItems);
+                    }
+                } else {
+                    grid.innerHTML = '<div class="error-box">❌ Gagal memuat data: ' + (data.message || 'Unknown error') + '</div>';
+                }
+            } catch(error) {
+                console.error('Error:', error);
+                grid.innerHTML = '<div class="error-box">❌ Gagal terhubung ke server. Pastikan backend berjalan.<br><small>Error: ' + error.message + '</small></div>';
+            }
+        }
+
+        function updateStats(items) {
+            document.getElementById('totalProjects').textContent = items.length;
+            const categories = [];
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].category && categories.indexOf(items[i].category) === -1) {
+                    categories.push(items[i].category);
+                }
+            }
+            document.getElementById('totalCategories').textContent = categories.length;
+        }
+
+        function setupFilters(items) {
+            const categories = ['all'];
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].category && categories.indexOf(items[i].category) === -1) {
+                    categories.push(items[i].category);
+                }
+            }
+            
+            let filterHtml = '';
+            for (let i = 0; i < categories.length; i++) {
+                const cat = categories[i];
+                const activeClass = cat === 'all' ? 'active' : '';
+                const label = cat === 'all' ? 'Semua Project' : cat;
+                filterHtml += '<button class="filter-btn ' + activeClass + '" data-filter="' + cat + '">' + label + '</button>';
+            }
+            document.getElementById('filterButtons').innerHTML = filterHtml;
+            
+            const buttons = document.querySelectorAll('.filter-btn');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function() {
+                    const allBtns = document.querySelectorAll('.filter-btn');
+                    for (let j = 0; j < allBtns.length; j++) {
+                        allBtns[j].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    if (filter === 'all') {
+                        displayPortfolio(allItems);
+                    } else {
+                        const filtered = [];
+                        for (let k = 0; k < allItems.length; k++) {
+                            if (allItems[k].category === filter) {
+                                filtered.push(allItems[k]);
+                            }
+                        }
+                        displayPortfolio(filtered);
+                    }
+                });
+            }
+        }
+
+        function displayPortfolio(items) {
+            const grid = document.getElementById('portfolioGrid');
+            
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="error-box">Tidak ada project dalam kategori ini.</div>';
+                return;
+            }
+            
+            let html = '';
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                
+                // image_url dari database sudah relatif terhadap root project
+                // (mis. "uploads/foto.jpg"), dan portfolio.html juga ada di root,
+                // jadi dipakai langsung tanpa ditambah '../' lagi.
+                let imageHtml = '';
+                if (item.image_url && item.image_url !== '') {
+                    imageHtml = '<img src="' + item.image_url + '" alt="' + item.title + '" onerror="window.showImageFallback(this)">';
+                } else {
+                    imageHtml = '<div class="no-image-placeholder"><i class="fas fa-image"></i></div>';
+                }
+                
+                const category = item.category || 'Uncategorized';
+                const description = (item.description || '').substring(0, 120) + ((item.description || '').length > 120 ? '...' : '');
+                const projectUrl = item.project_url || '#';
+                
+                html += '<div class="portfolio-card reveal">';
+                html += '    <div class="card-image">';
+                html += '        ' + imageHtml;
+                html += '        <div class="card-overlay">';
+                html += '            <a href="' + projectUrl + '" target="_blank" class="preview-btn"><i class="fas fa-external-link-alt"></i> Preview</a>';
+                html += '        </div>';
+                html += '    </div>';
+                html += '    <div class="card-content">';
+                html += '        <span class="card-category"><i class="fas fa-tag"></i> ' + category + '</span>';
+                html += '        <h3>' + item.title + '</h3>';
+                html += '        <p>' + description + '</p>';
+                html += '    </div>';
+                html += '</div>';
+            }
+            
+            grid.innerHTML = html;
+        }
+
+        // Jalankan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPortfolio();
+        });
+    </script>
+</body>
+</html>
